@@ -1,0 +1,95 @@
+.container {
+  max-width: 680px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+}
+
+h1 {
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  margin-bottom: 1.25rem;
+  color: #4b5563;
+}
+
+.toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.toggle button {
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  color: #111827;
+}
+
+.toggle .active {
+  border-color: #6366f1;
+  background: #eef2ff;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1rem;
+  background: #ffffff;
+}
+
+input,
+button {
+  padding: 0.65rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+}
+
+button {
+  cursor: pointer;
+  background: #111827;
+  color: #ffffff;
+  border: 1px solid #111827;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.token-label {
+  margin: 0;
+  font-weight: 600;
+}
+
+.token {
+  display: block;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-all;
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 0.6rem;
+}
+
+.row {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.profile {
+  margin: 0;
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-size: 0.88rem;
+}
+
+.message {
+  margin-top: 1rem;
+  font-weight: 600;
+}
