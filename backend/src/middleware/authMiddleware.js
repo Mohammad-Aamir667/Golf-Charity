@@ -30,7 +30,7 @@ const protect = async (req, res, next) => {
 };
 
 const adminOnly = (req, res, next) => {
-  const hardcodedAdminEmail = (process.env.ADMIN_EMAIL || "admin@example.com")
+  const hardcodedAdminEmail = (process.env.ADMIN_EMAIL || "admin@test.com")
     .trim()
     .toLowerCase();
   const userEmail = (req.user?.email || "").trim().toLowerCase();
