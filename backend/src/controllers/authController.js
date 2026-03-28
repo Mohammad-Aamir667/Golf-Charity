@@ -3,12 +3,10 @@ const User = require("../models/User");
 const generateToken = require("../utils/generateToken");
 
 const setAuthCookie = (res, token) => {
-  const cookieMaxAgeDays = Number(process.env.JWT_COOKIE_EXPIRES_DAYS || 7);
   res.cookie("token", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    maxAge: cookieMaxAgeDays * 24 * 60 * 60 * 1000,
+    secure: true,
+    sameSite: "None",
   });
 };
 
