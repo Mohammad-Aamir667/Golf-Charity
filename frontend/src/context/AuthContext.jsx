@@ -30,12 +30,15 @@ export const AuthProvider = ({ children }) => {
       body: JSON.stringify({ email, password }),
     });
   
+    console.log("LOGIN RESPONSE:", data); // debug
+  
     if (!response.ok) throw new Error(data.message || "Login failed");
   
-    // 🔥 directly set user
-    setUser(data.user);
+    // 🔥 THIS LINE IS MISSING IN YOUR CODE
+    localStorage.setItem("token", data.token);
   
-    return data;
+    const loggedInUser = await refreshProfile();
+    return { ...data, user: loggedInUser };
   };
 
   const signup = async ({ name, email, password }) => {
@@ -44,6 +47,7 @@ export const AuthProvider = ({ children }) => {
       body: JSON.stringify({ name, email, password }),
     });
     if (!response.ok) throw new Error(data.message || "Signup failed");
+    localStorage.setItem("token", data.token);
     const signedUpUser = await refreshProfile();
     return { ...data, user: signedUpUser };
   };
