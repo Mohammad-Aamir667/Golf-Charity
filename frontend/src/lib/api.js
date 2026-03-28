@@ -1,8 +1,7 @@
 export const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
-export const apiFetch = async (url, options = {}) => {
-  const token = localStorage.getItem("token"); // ✅ inside
-  
+export const apiFetch = async (path, options = {}) => {
+  const token = localStorage.getItem("token"); 
   const response = await fetch(BASE_URL + url, {
     ...options,
     headers: {
@@ -11,6 +10,6 @@ export const apiFetch = async (url, options = {}) => {
     },
   });
 
-  const data = await response.json();
+  const data = await response.json().catch(() => ({}));
   return { response, data };
 };
