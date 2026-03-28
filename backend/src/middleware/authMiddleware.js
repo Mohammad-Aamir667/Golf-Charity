@@ -1,41 +1,32 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-const protect  = async (req, res, next) => {
-  try {
-    const { token } = req.cookies;
-    if (!token) {
-      return res.status(401).json({ error: "Unauthorized", message: "Please log in to continue." });
-    }
+const protect = async (req, res, next) => {
+  const cookieToken = req.cookies?.token;
+  const authHeader = req.headers.authorization;
+  const bearerToken =
+    authHeader && authHeader.startsWith("Bearer ")
+      ? authHeader.split(" ")[1]
+      : null;
+  const token = cookieToken || bearerToken;
 
+  if (!token) {
+    return res.status(401).json({ message: "Not authorized, token missing" });
+  }
+
+  try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(decoded.userId);
+    const user = await User.findById(decoded.userId).select("-password");
 
     if (!user) {
-      return res.status(404).json({ error: "User Not Found", message: "No user associated with this token." });
+      return res.status(401).json({ message: "User not found" });
     }
 
     req.user = user;
     next();
-  } catch (err) {
-    return res.status(401).json({ error: "Invalid Token", message: "Your session has expired or token is invalid." });
+  } catch (error) {
+    return res.status(401).json({ message: "Not authorized, token invalid" });
   }
 };
 
-
-const adminOnly = (req, res, next) => {
-  const hardcodedAdminEmail = (process.env.ADMIN_EMAIL || "admin@test.com")
-    .trim()
-    .toLowerCase();
-  const userEmail = (req.user?.email || "").trim().toLowerCase();
-  const isAdminByRole = req.user?.role === "admin";
-  const isHardcodedAdmin = userEmail && userEmail === hardcodedAdminEmail;
-
-  if (!isAdminByRole && !isHardcodedAdmin) {
-    return res.status(403).json({ message: "Admin access required" });
-  }
-
-  return next();
-};
-
-module.exports = { protect, adminOnly };
+module.exports = { protect };
