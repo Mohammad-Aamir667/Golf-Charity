@@ -36,19 +36,42 @@ const LoginPage = () => {
   };
 
   return (
-    <main className="container">
-      <h1>Login</h1>
-      <form className="card" onSubmit={onSubmit}>
-        <input name="email" placeholder="Email" onChange={onChange} required />
-        <input name="password" type="password" placeholder="Password" onChange={onChange} required />
-        <button disabled={loading}>
-          {loading ? "Please wait..." : "Login"}
-        </button>
-      </form>
-      {error && <p className="message">{error}</p>}
-      <p>
-        Don’t have an account? <Link to="/signup">Signup</Link>
-      </p>
+    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Login</h1>
+        </div>
+        
+        <form className="bg-white rounded-lg shadow-lg p-8 space-y-5" onSubmit={onSubmit}>
+          <input 
+            name="email" 
+            placeholder="Email" 
+            onChange={onChange} 
+            required 
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          />
+          <input 
+            name="password" 
+            type="password" 
+            placeholder="Password" 
+            onChange={onChange} 
+            required 
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          />
+          <button 
+            disabled={loading}
+            className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white font-semibold py-3 rounded-lg transition duration-200"
+          >
+            {loading ? "Please wait..." : "Login"}
+          </button>
+        </form>
+
+        {error && <p className="mt-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg text-center font-medium">{error}</p>}
+        
+        <p className="text-center mt-6 text-gray-600">
+          Don&apos;t have an account? <Link to="/signup" className="text-indigo-600 hover:text-indigo-700 font-semibold">Signup</Link>
+        </p>
+      </div>
     </main>
   );
 };
